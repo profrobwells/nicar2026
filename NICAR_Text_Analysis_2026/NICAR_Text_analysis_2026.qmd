@@ -36,7 +36,7 @@ Fellow, Howard Center for Investigative Journalism.\
 Philip Merrill College of Journalism, University of Maryland.\
 [tiasias3\@umd.edu](mailto:tiasias3@umd.edu){.email} \| <a href="https://www.linkedin.com/in/tiasia-saunders-1494671b5/">LinkedIn</a>.\
 
-<img src="assets\merrill-logo-dark.png" width="450" height="75"/>
+<img src="assets/merrill-logo-dark.png" width="450" height="75"/>
 
 **Credits:**\
 
@@ -74,7 +74,7 @@ library(zoo)
 <br>
 
 ::: {style="text-align: center; color: #1FB0C4; font-weight: bold;"}
-<img src="assets\printing_hate.png" width="1265" height="619"/>
+<img src="assets/printing_hate.png" width="1265" height="619"/>
 
 <a href="https://lynching.cnsmaryland.org/">Howard Center for Investigative Journalism's \`Printing Hate' series</a>.
 
@@ -185,6 +185,12 @@ ggplot(top_20_bigrams, aes(x = reorder(bigram, n), y = n, fill=n)) +
 ```{r}
 # load sentiment dictionary
 afinn <- get_sentiments("afinn")
+bing <- get_sentiments("bing")
+nrc <- get_sentiments("nrc")
+```
+
+
+```{r}
 
 #tokenize the dataframe, grouping by article number
 sentiment <- baltimore |> 
@@ -561,7 +567,7 @@ my_corpus <- corpus(baltimore, text_field = "text")
 docvars(my_corpus)$yearmo <- baltimore$yearmo
 ```
 
-[Search for the term 'media'] {style="font-size: 18px; font-weight: bold;"}
+\[Search for the term 'media'\] {style="font-size: 18px; font-weight: bold;"}
 
 ```{r}
 # Tokenize corpus
@@ -578,10 +584,12 @@ kwic_media <- kwic(my_tokens, pattern = "media", valuetype = "fixed") |>
 
 ```{r}
 media_narratives <- kwic(my_tokens, 
-                         pattern = c("media", "reporter", "newspaper", "journalist"), 
+                         pattern = c("media", "reporter", "newspaper", "journalist"), window = 20,
                          valuetype = "fixed") |> 
   as.data.frame() |>
   mutate(doc_id = docname)
+
+#You can adjust the number of words on either side with the window variable
 
 ```
 
