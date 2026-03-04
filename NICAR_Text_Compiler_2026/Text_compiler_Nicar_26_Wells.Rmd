@@ -1,7 +1,4 @@
 ---
-title: "Text Compiler"
-author: "Rob Wells"
-date: "2026-02-24"
 output: html_document
 editor_options: 
   markdown: 
@@ -31,7 +28,7 @@ learning]{style="font-size: 40pt;"}
 > strategies. This session is for adventurous beginners and people who
 > can open R, load data and not freak out.
 
-::: {style="text-align:> center;"}
+::: {style="text-align: center;"}
 ![](merrill-logo-dark.png)
 :::
 
@@ -124,7 +121,7 @@ The 87 news articles are in a folder called input.
 > This chunk reads each individual .rtf file, processes it in a loop and
 > transforms it to a .txt raw text file
 
-```{r}
+```{r include=FALSE}
 # Load required packages
 
 # Set the paths for your folders
@@ -160,16 +157,14 @@ cat("Conversion complete! You're a genius!\n")
 ```
 
 **Next, we take all of those text files and jam them into a dataframe**
-\> This is a very big deal \> It allows you to perform advanced text
-analytics on the news stories
+–\> This is a very big deal \<-
+
+It allows you to perform advanced text analytics on the news stories
 
 # Raw text compiler
 
 ```{r include=FALSE}
 #This creates an index with the file path to the stories. And then it compiles the stories into a dataframe
-#####################
-# Begin SM Code #####
-#####################
 
 ###
 # List out text files that match pattern .txt, create DF
@@ -189,7 +184,7 @@ files <- list.files("./output", pattern="*.txt") %>%
 
 ## Check for duplicates
 
-```{r}
+```{r include=FALSE}
 dupe_data <- rio::import("nexis_search_results_list.xlsx") |> 
   clean_names() |> 
    #create an matching file name
@@ -205,7 +200,7 @@ dupe_data <- rio::import("nexis_search_results_list.xlsx") |>
 
 > Article count drops from 87 to 68
 
-```{r}
+```{r include=FALSE}
 #Join the file list to the index
 
 final_data <- rio::import("nexis_search_results_list.xlsx", 
@@ -245,24 +240,13 @@ final_index <- final_data |>
 #you need the actual hard-coded path on this line below to the text
   mutate(filepath = paste0("./output/", filename))
 
-head(final_index)
-```
-
-**Duplicate check**
-
-```{r}
-
-anti_final_index <- final_data |> 
-  anti_join(files, c("index"))
-
 ```
 
 ## Text compiler
 
-> Now we process those articles into a single spreadsheet First version
-> is one row per sentence
+> Now we process those articles into a single spreadsheet.
 
-```{r}
+```{r include=FALSE}
 
 # --- STEP 1: Define the function ---
 create_article_text <- function(row_value) {
@@ -312,8 +296,7 @@ articles_final <- articles_df %>%
   # Keep only your required columns
   select(filename, published_date, headline, full_text, publication_4, length, section, byline, filepath)
 
-# Check your 68 rows
-glimpse(articles_final)
+
 ```
 
 ::: {style="text-align: center; color: #FF4500; font-weight: bold;"}
@@ -323,7 +306,7 @@ glimpse(articles_final)
 ```{r}
 wrapped_text <- strwrap(as.character(articles_final$full_text[2]), width = 60)
 writeLines(wrapped_text, "temp_text.txt")
-file.edit("temp_text.txt")
+#file.edit("temp_text.txt")
 ```
 
 ## Clean data
@@ -359,7 +342,7 @@ articles_df <- articles_final |>
 
 ## Deal with dates
 
-```{r}
+```{r include=FALSE}
 
 articles_df <- articles_df %>%
   mutate(published_date_clean = case_when(
@@ -378,9 +361,9 @@ articles_df <- articles_df %>%
 :::
 
 ```{r}
-wrapped_text <- strwrap(as.character(articles_final$full_text[2]), width = 60)
+wrapped_text <- strwrap(as.character(articles_final$full_text[6]), width = 60)
 writeLines(wrapped_text, "temp_text.txt")
-file.edit("temp_text.txt")
+#file.edit("temp_text.txt")
 ```
 
 # Extracting text from PDFs
@@ -451,7 +434,7 @@ extracted_lines <- extracted_lines |>
   mutate(extracted_lines = str_remove(extracted_lines, "\\| About LexisNexis \\| Privacy Policy \\| Terms & Conditions \\| Copyright © 2020 LexisNexis"))
 ```
 
-#Build a final dataframe index
+## Build a final dataframe index
 
 ```{r}
 # Step 1: Trim spaces and detect rows with titles and dates
@@ -509,19 +492,19 @@ dataframe with clean text and perform basic computational text analysis
 ```{r}
 #Install Required Tools
 #Using the system() function to execute a command-line operation directly from within R.
-system("brew install tesseract")
-system("brew install xpdf")
-system("xcode-select --install")
-system("brew install libtiff")
-system("brew install ghostscript")
-system("brew install imagemagick")
+# system("brew install tesseract")
+# system("brew install xpdf")
+# system("xcode-select --install")
+# system("brew install libtiff")
+# system("brew install ghostscript")
+# system("brew install imagemagick")
 ```
 
 ## Convert PDF to Text
 
 ```{r}
 #Executes pdftotext, a command-line tool used to convert PDF files to plain text.
-system("pdftotext kemi.PDF ./extracted_text/kemi_tesseract.txt")
+# system("pdftotext kemi.PDF ./extracted_text/kemi_tesseract.txt")
 ```
 
 # Computational Text Analysis
@@ -664,3 +647,17 @@ datatable(media_narratives_table,
           caption = "Journalism Terms in Context",
           options = list(pageLength = 20))
 ```
+
+<br>
+
+::: {style="text-align: center;"}
+**Questions?**\
+**Rob Wells, Ph.D.**\
+Philip Merrill College of Journalism, University of Maryland.\
+[robwells\@umd.edu](mailto:robwells@umd.edu){.email} \|
+<a href="https://www.linkedin.com/in/rob-wells-7929329/">LinkedIn</a>.\
+
+<br>
+
+[--30--]{style="font-size: 18px; font-weight: bold;"}
+:::
