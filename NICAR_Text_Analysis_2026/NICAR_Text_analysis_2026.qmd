@@ -17,6 +17,10 @@ Using R For Story Discovery in Document Collections]{style="font-size: 40pt;"}
 **Time: Thursday, March 5: 3:45 p.m. to 4:45 1p.m.**\
 **Location: Room 201, BYO computer lab**\
 [ver. 3/2/2026.]{style="font-size: 8pt;"}
+
+[Link to Github repo - select NICAR_Text_analysis_2026]{style="font-size: 18pt;"}
+
+![](wells_nicar_2026.png){width="50%"}
 :::
 
 > This hands-on session will show how to analyze a large batch of files to find common themes and narratives.
@@ -188,7 +192,6 @@ afinn <- get_sentiments("afinn")
 bing <- get_sentiments("bing")
 nrc <- get_sentiments("nrc")
 ```
-
 
 ```{r}
 
