@@ -3,11 +3,14 @@ title: "Text Compiler"
 author: "Rob Wells"
 date: "2026-02-24"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-
 ::: {style="text-align: center; color: #FF4500; font-weight: bold;"}
-[How to get a pile of documents processed for machine learning]{style="font-size: 40pt;"}
+[How to get a pile of documents processed for machine
+learning]{style="font-size: 40pt;"}
 :::
 
 <br>
@@ -16,15 +19,20 @@ output: html_document
 **NICAR 2025**\
 **Time: Saturday, March 7: 10:15 a.m.-11:15 a.m.**\
 **Location: Room 205, Mac lab**\
-[ver. 2/22/2026.]{style="font-size: 8pt;"}
+[ver. 3/4/2026.]{style="font-size: 8pt;"}
 :::
 
-> Ever wanted to use software to analyze a stack of PDFs or Word documents but you don't know how to start? This session is for you.
-> Using R, I will walk through the process of processing dozens of PDF documents into machine-readable text. Setting this up correctly saves you time but expands the analytical opportunities down the road. 
-> We will then walk through a quick tour of common text analysis strategies.
-> This session is for adventurous beginners and people who can open R, load data and not freak out.
-::: {style="text-align: center;"}
-<img src="assets\merrill-logo-dark.png" width="450" height="75"/>
+> Ever wanted to use software to analyze a stack of PDFs or Word
+> documents but you don't know how to start? This session is for you.
+> Using R, I will walk through the process of processing dozens of PDF
+> documents into machine-readable text. Setting this up correctly saves
+> you time but expands the analytical opportunities down the road. We
+> will then walk through a quick tour of common text analysis
+> strategies. This session is for adventurous beginners and people who
+> can open R, load data and not freak out.
+
+::: {style="text-align:> center;"}
+![](merrill-logo-dark.png)
 :::
 
 <br>
@@ -32,19 +40,23 @@ output: html_document
 ::: {style="text-align: center;"}
 **Rob Wells, Ph.D.**\
 Philip Merrill College of Journalism, University of Maryland.\
-[robwells\@umd.edu](mailto:robwells@umd.edu){.email} \| <a href="https://www.linkedin.com/in/rob-wells-7929329/">LinkedIn</a>.\
+[robwells\@umd.edu](mailto:robwells@umd.edu){.email} \|
+<a href="https://www.linkedin.com/in/rob-wells-7929329/">LinkedIn</a>.\
 :::
 
 ::: {style="text-align: center;"}
 **Coach: Aidan Hughes**\
 Data Journalist, Howard Center for Investigative Journalism.\
 Philip Merrill College of Journalism, University of Maryland.\
-[athughes\@umd.edu](mailto:athughes@umd.edu){.email} \| <a href="https://www.linkedin.com/in/tiasia-saunders-1494671b5/">LinkedIn</a>.\
-:::
+[athughes\@umd.edu](mailto:athughes@umd.edu){.email} \|
+<a href="https://www.linkedin.com/in/tiasia-saunders-1494671b5/">LinkedIn</a>.\
 
 **Credits:**
 
--   Sean Mussenden, interim director, <a href="https://merrill.umd.edu/howard-center-for-investigative-journalism/">Howard Center for Investigative Journalism</a>.\
+-   Sean Mussenden, interim director,
+    <a href="https://merrill.umd.edu/howard-center-for-investigative-journalism/">Howard
+    Center for Investigative Journalism</a>.\
+:::
 
 ## Load software
 
@@ -76,30 +88,41 @@ library(zoo)
 
 # Data transformation #1: rich text files
 
+We're going to take a folder of text files and compile them into a
+single dataframe for analysis.
 
-We're going to take a folder of text files and compile them into a single dataframe for analysis.
+We are working with a folder full of news articles about a particular
+journalist. I downloaded them from NexisUni, a common news database
+widely used by colleges and newsrooms that are not on a starvation
+budget.
 
-We are working with a folder full of news articles about a particular journalist. I downloaded them from NexisUni, a common news database widely used by colleges and newsrooms that are not on a starvation budget.
+The search of "Raymond Moley" and atleast2(Moley) returned 87 rich text
+file (.rtf) documents. We downloaded the individual files and then
+separately downloaded a spreadsheet with the metadata of the files.
+We'll attach the metadata to the downloaded files.
 
-The search of "Raymond Moley" and atleast2(Moley) returned 87 rich text file (.rtf) documents. We downloaded the individual files and then separately downloaded a spreadsheet with the metadata of the files. We'll attach the metadata to the downloaded files. 
-
-First step, we have to please the R gods by converting the .rtf files into .txt files.
+First step, we have to please the R gods by converting the .rtf files
+into .txt files.
 
 Do not anger the R gods!
 
-
 Steps:
 
-1)  Create a folder Text_Compiler
-2)  And inside that folder, create an input folder and an output folder
-3)  Copy your spreadsheet index and the folder of text files into Text_Compiler folder
-4)  Create an .Rproj file for Text_Compiler
+-   Create a folder Text_Compiler
+
+-   And inside that folder, create an input folder and an output folder
+
+-   Copy your spreadsheet index and the folder of text files into
+    Text_Compiler folder
+
+-   Create an .Rproj file for Text_Compiler
 
 The 87 news articles are in a folder called input.
 
 ## Reformat .RTF files to raw text
 
-**This chunk reads each individual .rtf file, processes it in a loop and transforms it to a .txt raw text file
+> This chunk reads each individual .rtf file, processes it in a loop and
+> transforms it to a .txt raw text file
 
 ```{r}
 # Load required packages
@@ -136,10 +159,9 @@ for (file in rtf_files) {
 cat("Conversion complete! You're a genius!\n")
 ```
 
-
 **Next, we take all of those text files and jam them into a dataframe**
-> This is a very big deal
-> It allows you to perform advanced text analytics on the news stories
+\> This is a very big deal \> It allows you to perform advanced text
+analytics on the news stories
 
 # Raw text compiler
 
@@ -167,7 +189,6 @@ files <- list.files("./output", pattern="*.txt") %>%
 
 ## Check for duplicates
 
-
 ```{r}
 dupe_data <- rio::import("nexis_search_results_list.xlsx") |> 
   clean_names() |> 
@@ -180,7 +201,7 @@ dupe_data <- rio::import("nexis_search_results_list.xlsx") |>
   
 ```
 
-## Zap duplicates 
+## Zap duplicates
 
 > Article count drops from 87 to 68
 
@@ -227,7 +248,7 @@ final_index <- final_data |>
 head(final_index)
 ```
 
-**Duplicate check **
+**Duplicate check**
 
 ```{r}
 
@@ -236,11 +257,10 @@ anti_final_index <- final_data |>
 
 ```
 
-
 ## Text compiler
 
-> Now we process those articles into a single spreadsheet
-> First version is one row per sentence
+> Now we process those articles into a single spreadsheet First version
+> is one row per sentence
 
 ```{r}
 
@@ -296,10 +316,9 @@ articles_final <- articles_df %>%
 glimpse(articles_final)
 ```
 
-
 ::: {style="text-align: center; color: #FF4500; font-weight: bold;"}
 # Quick view of any entry by row
-:::    
+:::
 
 ```{r}
 wrapped_text <- strwrap(as.character(articles_final$full_text[2]), width = 60)
@@ -309,7 +328,8 @@ file.edit("temp_text.txt")
 
 ## Clean data
 
-> We saw a lot of metadata at the bottom of the article. We'll strip it out so we have clean text for analysis
+> We saw a lot of metadata at the bottom of the article. We'll strip it
+> out so we have clean text for analysis
 
 ```{r}
 
@@ -337,8 +357,8 @@ articles_df <- articles_final |>
 
 ```
 
-
 ## Deal with dates
+
 ```{r}
 
 articles_df <- articles_df %>%
@@ -353,10 +373,9 @@ articles_df <- articles_df %>%
   rename(date = published_date_clean)
 ```
 
-
 ::: {style="text-align: center; color: #FF4500; font-weight: bold;"}
 # Quick view of any entry by row
-::: 
+:::
 
 ```{r}
 wrapped_text <- strwrap(as.character(articles_final$full_text[2]), width = 60)
@@ -364,12 +383,10 @@ writeLines(wrapped_text, "temp_text.txt")
 file.edit("temp_text.txt")
 ```
 
-   
 # Extracting text from PDFs
 
-
-> Convert PDF to text
-> Using 10 articles downloaded from NexisUni for Kemi Busari's research
+> Convert PDF to text Using 10 articles downloaded from NexisUni for
+> Kemi Busari's research
 
 ```{r}
 #Using pdftools package. Good for basic PDF extraction
@@ -381,7 +398,10 @@ writeLines(text, "./output/kemi_text.txt")
 
 # Split text to separate articles on common identifier
 
-In this case, NexisUni makes life easy for us. At the end of each document, there are the words "End of Document". Convenient! We search for "End of Document" and then instruct R to split the file and dump it into a standalone text file.
+In this case, NexisUni makes life easy for us. At the end of each
+document, there are the words "End of Document". Convenient! We search
+for "End of Document" and then instruct R to split the file and dump it
+into a standalone text file.
 
 ```{r}
 # Step 1: Read the entire text file into R
@@ -411,7 +431,8 @@ cat("Files created:", length(documents), "\n")
 
 # Create an index from the first extracted page
 
---We are just grabbing the index of the 10 listed items and creating a dataframe
+--We are just grabbing the index of the 10 listed items and creating a
+dataframe
 
 ```{r}
 kemi_index <- read_lines("./pdf_extracted_text/kemi_extracted_1.txt")
@@ -477,10 +498,11 @@ write_csv(final_data, "pdf_final_data.csv")
   
 ```
 
-
 ## Repeat sequence above
-Now you have a folder with raw text and a dataframe with metadata. You can now repeat the steps starting from text compiler and build a dataframe with clean text and perform basic computational text analysis
 
+Now you have a folder with raw text and a dataframe with metadata. You
+can now repeat the steps starting from text compiler and build a
+dataframe with clean text and perform basic computational text analysis
 
 ### For more complicated PDFs, bring in the Big Guns
 
@@ -502,13 +524,13 @@ system("brew install imagemagick")
 system("pdftotext kemi.PDF ./extracted_text/kemi_tesseract.txt")
 ```
 
-
 # Computational Text Analysis
 
-> Now that you have the material in raw text format and in a dataframe, let's start digging in.
-Here's a separate presentation I did Thursday that describes the process in some detail.
+> Now that you have the material in raw text format and in a dataframe,
+> let's start digging in. Here's a separate presentation I did Thursday
+> that describes the process in some detail.
 
-https://profrobwells.github.io/Guest_Lectures/NICAR_Text_Analysis_2026/NICAR_Text_analysis_2026.html
+<https://profrobwells.github.io/Guest_Lectures/NICAR_Text_Analysis_2026/NICAR_Text_analysis_2026.html>
 
 ::: {style="text-align: center; color: #FF4500; font-weight: bold;"}
 # Bigrams
@@ -642,4 +664,3 @@ datatable(media_narratives_table,
           caption = "Journalism Terms in Context",
           options = list(pageLength = 20))
 ```
-
