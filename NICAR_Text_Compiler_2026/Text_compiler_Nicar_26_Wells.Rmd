@@ -73,6 +73,7 @@ Philip Merrill College of Journalism, University of Maryland.\
 # install.packages("lubridate")
 # install.packages("zoo")
 #install.packages("pdftools")
+#install.packages("textdata")
 library(tidyverse)
 library(pdftools)
 library(janitor)
