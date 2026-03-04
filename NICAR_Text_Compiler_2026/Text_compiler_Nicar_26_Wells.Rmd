@@ -17,6 +17,11 @@ learning]{style="font-size: 40pt;"}
 **Time: Saturday, March 7: 10:15 a.m.-11:15 a.m.**\
 **Location: Room 205, Mac lab**\
 [ver. 3/4/2026.]{style="font-size: 8pt;"}
+
+Link to Github repo - select NICAR_Text_Compiler_2026 {style="font-size:
+18pt;"}
+
+![](wells_nicar_2026.png){width="30%"}
 :::
 
 > Ever wanted to use software to analyze a stack of PDFs or Word
