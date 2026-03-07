@@ -15,11 +15,11 @@ learning]{style="font-size: 40pt;"}
 ::: {style="text-align: center;font-size: 14pt;"}
 **NICAR 2025**\
 **Time: Saturday, March 7: 10:15 a.m.-11:15 a.m.**\
-**Location: Room 205, Mac lab**\
+**Location: Room 205**\
 [ver. 3/4/2026.]{style="font-size: 8pt;"}
 
-Link to Github repo - select NICAR_Text_Compiler_2026 {style="font-size:
-18pt;"}
+[Link to Github repo - select
+NICAR_Text_Compiler_2026]{style="font-size: 18pt"}
 
 ![](wells_nicar_2026.png){width="30%"}
 :::
@@ -43,21 +43,19 @@ Link to Github repo - select NICAR_Text_Compiler_2026 {style="font-size:
 **Rob Wells, Ph.D.**\
 Philip Merrill College of Journalism, University of Maryland.\
 [robwells\@umd.edu](mailto:robwells@umd.edu){.email} \|
-<a href="https://www.linkedin.com/in/rob-wells-7929329/">LinkedIn</a>.\
+[LinkedIn](%22https://www.linkedin.com/in/rob-wells-7929329)
 :::
 
 ::: {style="text-align: center;"}
 **Coach: Aidan Hughes**\
 Data Journalist, Howard Center for Investigative Journalism.\
 Philip Merrill College of Journalism, University of Maryland.\
-[athughes\@umd.edu](mailto:athughes@umd.edu){.email} \|
-<a href="https://www.linkedin.com/in/tiasia-saunders-1494671b5/">LinkedIn</a>.\
+[athughes\@umd.edu](mailto:athughes@umd.edu){.email}\
 
 **Credits:**
 
--   Sean Mussenden, interim director,
-    <a href="https://merrill.umd.edu/howard-center-for-investigative-journalism/">Howard
-    Center for Investigative Journalism</a>.\
+-   Sean Mussenden, interim director, [Howard Center for Investigative
+    Journalism](https://merrill.umd.edu/howard-center-for-investigative-journalism)\
 :::
 
 ## Load software
@@ -312,7 +310,7 @@ articles_final <- articles_df %>%
 ```{r}
 wrapped_text <- strwrap(as.character(articles_final$full_text[2]), width = 60)
 writeLines(wrapped_text, "temp_text.txt")
-#file.edit("temp_text.txt")
+file.edit("temp_text.txt")
 ```
 
 ## Clean data
@@ -369,7 +367,7 @@ articles_df <- articles_df %>%
 ```{r}
 wrapped_text <- strwrap(as.character(articles_final$full_text[6]), width = 60)
 writeLines(wrapped_text, "temp_text.txt")
-#file.edit("temp_text.txt")
+file.edit("temp_text.txt")
 ```
 
 # Extracting text from PDFs
@@ -483,7 +481,7 @@ final_data <- final_data |>
   mutate(index = row_number()) |> 
   select(index, date, title, publication)
 
-write_csv(final_data, "pdf_final_data.csv")
+#write_csv(final_data, "pdf_final_data.csv")
   
 ```
 
@@ -498,19 +496,19 @@ dataframe with clean text and perform basic computational text analysis
 ```{r}
 #Install Required Tools
 #Using the system() function to execute a command-line operation directly from within R.
-# system("brew install tesseract")
-# system("brew install xpdf")
-# system("xcode-select --install")
-# system("brew install libtiff")
-# system("brew install ghostscript")
-# system("brew install imagemagick")
+system("brew install tesseract")
+system("brew install xpdf")
+system("xcode-select --install")
+system("brew install libtiff")
+system("brew install ghostscript")
+system("brew install imagemagick")
 ```
 
 ## Convert PDF to Text
 
 ```{r}
 #Executes pdftotext, a command-line tool used to convert PDF files to plain text.
-# system("pdftotext kemi.PDF ./extracted_text/kemi_tesseract.txt")
+system("pdftotext ./input/kemi.PDF ./pdf_extracted_text/kemi_tesseract.txt")
 ```
 
 # Computational Text Analysis
@@ -661,9 +659,7 @@ datatable(media_narratives_table,
 **Rob Wells, Ph.D.**\
 Philip Merrill College of Journalism, University of Maryland.\
 [robwells\@umd.edu](mailto:robwells@umd.edu){.email} \|
-<a href="https://www.linkedin.com/in/rob-wells-7929329/">LinkedIn</a>.\
-
-<br>
+[LinkedIn](https://www.linkedin.com/in/rob-wells-7929329/)\
 
 [--30--]{style="font-size: 18px; font-weight: bold;"}
 :::
